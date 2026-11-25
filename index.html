@@ -1047,10 +1047,17 @@ function ensureReal(key){
   if(REAL[key]||realState[key]||!THREE.GLTFLoader)return;
   if(key.startsWith('u:'))return ensureUserModel(key.slice(2));
   const file=REAL_FILES[key];if(!file)return;realState[key]='carregando';
-  const urls=location.protocol==='file:'?[REAL_CDN+file]:['modelos/'+file,REAL_CDN+file];
-  const tryLoad=i=>new THREE.GLTFLoader().load(urls[i],gl=>{delete realState[key];prepReal(key,gl.scene)},undefined,e=>{
-    if(i+1<urls.length)tryLoad(i+1);else{realState[key]='erro';console.warn('Modelo 3D não carregou: '+key,e)}});
-  tryLoad(0);
+  // site: modelos/x.glb · link do claude.ai: modelos/x.glb.txt (o mesmo arquivo em base64) · computador: jsDelivr
+  const tries=location.protocol==='file:'?[[REAL_CDN+file,0]]:[['modelos/'+file,0],['modelos/'+file+'.txt',1],[REAL_CDN+file,0]];
+  const fromB64=t=>{const s=atob(t.replace(/\s+/g,'')),b=new Uint8Array(s.length);for(let j=0;j<s.length;j++)b[j]=s.charCodeAt(j);return b.buffer};
+  const next=i=>{
+    if(i>=tries.length){realState[key]='erro';console.warn('Modelo 3D não carregou: '+key);return}
+    const [u,b64]=tries[i];
+    fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return b64?r.text().then(fromB64):r.arrayBuffer()})
+      .then(buf=>new THREE.GLTFLoader().parse(buf,'',gl=>{delete realState[key];prepReal(key,gl.scene)},()=>next(i+1)))
+      .catch(()=>next(i+1));
+  };
+  next(0);
 }
 function prepReal(key,s){
   const cfg=REAL_CFG[key]||{};if(cfg.rot)s.rotation.y=cfg.rot;s.updateMatrixWorld(true);
