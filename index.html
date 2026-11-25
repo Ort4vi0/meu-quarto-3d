@@ -325,6 +325,60 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
 .gap-svg .g-sel{fill:color-mix(in srgb,var(--sel) 18%,transparent);stroke:var(--sel)}
 .gap-svg .g-op{stroke:var(--sel)}
 .gap-svg text{font:600 10px var(--body)}
+/* lista de itens: botão de olho para esconder */
+.li-head{justify-content:space-between}
+.li-row{display:flex;align-items:center;gap:2px}
+.li-row>button[data-pick-item]{flex:1;min-width:0}
+.li-row>button[data-pick-item] span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-row.is-hidden>button[data-pick-item]{opacity:.55}
+.list .li-eye{flex:none;width:30px;height:30px;padding:0;display:grid;place-items:center;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--subtle);cursor:pointer}
+.list .li-eye:hover{background:var(--panel-2);border-color:var(--line);color:var(--fg)}
+.list .li-eye[aria-pressed="true"]{color:var(--fg)}
+.tag{font-style:normal;font-size:10px;font-weight:600;color:var(--subtle);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:4px}
+/* versões e link */
+.ver-new{flex-wrap:nowrap}
+.ver-new input,.share-out{flex:1;min-width:0;height:36px;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--bg);color:var(--fg);font:12.5px var(--body);padding:0 10px}
+.share-out{width:100%;font-size:11.5px;color:var(--muted)}
+.ver-list{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:220px;overflow:auto}
+.ver-list li{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;background:var(--panel-2)}
+.ver-copy{flex:1;min-width:0;display:grid;line-height:1.3}
+.ver-copy b{font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ver-copy small{font-size:10.5px;color:var(--subtle)}
+/* menu do botão direito */
+.ctx{position:fixed;z-index:60;min-width:210px;padding:6px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 16px 40px #0004;display:grid;gap:1px}
+.ctx-title{margin:2px 8px 6px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.ctx button{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:34px;padding:0 10px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--fg);font:500 12.5px var(--body);text-align:left;cursor:pointer}
+.ctx button:hover:not(:disabled),.ctx button:focus-visible{background:var(--panel-2);border-color:var(--line);outline:none}
+.ctx button:disabled{opacity:.4;cursor:default}
+.ctx button.danger{color:var(--danger)}
+.ctx kbd{color:var(--subtle)}
+.ctx hr{border:0;border-top:1px solid var(--line);margin:4px 2px}
+/* paleta de comandos */
+.cmdk-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 10px 0 12px;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--panel);color:var(--subtle);font:12px var(--body);cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--fg);border-color:color-mix(in srgb,var(--fg) 30%,var(--line))}
+.cmdk-btn kbd{font-size:9.5px;padding:2px 5px}
+@media (max-width:1280px){.cmdk-btn span,.cmdk-btn kbd{display:none}.cmdk-btn{width:40px;justify-content:center;padding:0}}
+.cmdk{position:fixed;inset:0;z-index:70;display:flex;justify-content:center;align-items:flex-start;padding:max(12vh,24px) max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));background:#08090bb0;backdrop-filter:blur(6px)}
+.cmdk-box{width:min(620px,100%);max-height:min(560px,76vh);display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:0 24px 80px #0006;overflow:hidden}
+.cmdk-in{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--line);color:var(--subtle)}
+.cmdk-in input{flex:1;min-width:0;height:54px;border:0;background:transparent;color:var(--fg);font:500 15px var(--body);outline:none}
+.cmdk-list{list-style:none;margin:0;padding:6px;overflow:auto;flex:1}
+.cmdk-g{padding:10px 10px 4px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle)}
+.cmdk-o{display:flex;align-items:center;gap:10px;min-height:38px;padding:4px 10px;border-radius:7px;font-size:13px;cursor:pointer}
+.cmdk-o>span:not(.cmdk-th){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmdk-o small{font-size:10.5px;color:var(--subtle)}
+.cmdk-o.on{background:var(--panel-2)}
+.cmdk-th{flex:none;width:36px;height:27px;border-radius:4px;background:var(--panel-2);overflow:hidden}
+.cmdk-th img{width:100%;height:100%;object-fit:contain;display:block}
+.cmdk-empty{padding:18px 12px;font-size:12.5px;color:var(--muted)}
+.cmdk-foot{display:flex;gap:16px;margin:0;padding:10px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--subtle)}
+/* só visualização (link compartilhado) */
+.viewbar{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.view-mode .crumb .summary{display:none}
+.viewbar-tag{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);border:1px solid var(--line);border-radius:5px;padding:3px 7px}
+.view-mode .lib,.view-mode .insp,.view-mode #save-btn,.view-mode #save-st,.view-mode #undo,.view-mode #redo,.view-mode #gear,.view-mode #lights-btn,.view-mode .cmdk-btn{display:none!important}
+.view-mode .app{grid-template-columns:280px minmax(0,1fr);grid-template-areas:"brand top" "stage stage"}
+.view-mode .stage{margin:16px}
 @media (max-width:980px){
   html,body{height:auto}
   .app{height:auto;grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"brand" "top" "stage" "insp" "lib"}
@@ -335,6 +389,8 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
   .insp{margin:12px 16px}
   .lib{border-right:0;border-top:1px solid var(--line)}
   .panel{overflow:visible}
+  .view-mode .app{grid-template-columns:minmax(0,1fr);grid-template-areas:"brand" "top" "stage"}
+  .viewbar{flex-wrap:wrap}
 }
 @media (max-width:460px){
   .seg button{padding:6px 9px}
@@ -349,7 +405,9 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
     <div><h1>Meu Quarto 3D</h1><small>Planejador 3D</small></div>
   </div>
   <header class="top">
-    <div class="crumb"><span>Projeto</span><span class="sep" aria-hidden="true">/</span><b>Meu quarto</b><p class="summary mono" id="summary"></p></div>
+    <div class="crumb"><span>Projeto</span><span class="sep" aria-hidden="true">/</span><b id="crumb-name">Meu quarto</b><p class="summary mono" id="summary"></p></div>
+    <div class="viewbar" id="viewbar" hidden><span class="viewbar-tag">Só visualização</span><button class="btn primary" id="view-use">Usar este quarto</button><button class="btn" id="view-exit">Voltar ao meu quarto</button></div>
+    <button class="cmdk-btn" id="cmdk-btn" title="Buscar ou fazer algo (Ctrl+K)"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Buscar ou fazer algo</span><kbd>Ctrl K</kbd></button>
     <div class="top-act">
       <span class="save-st" id="save-st" role="status"></span>
       <button class="btn primary" id="save-btn" title="Salvar (Ctrl+S)"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1.5h9l3 3v9a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 1.5v4h6v-4M4.5 14.5v-5h7v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Salvar</span></button>
@@ -360,6 +418,7 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
     <div class="top-act">
       <button class="btn" id="ruler-btn" title="Régua: medir entre dois pontos" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="5" width="14" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4 5v2.5M7 5v3.5M10 5v2.5M13 5v3.5" stroke="currentColor" stroke-width="1.2"/></svg>Régua</button>
       <button class="btn" id="undo" disabled title="Desfazer (Ctrl+Z)">↶ Desfazer</button>
+      <button class="btn" id="redo" disabled title="Refazer (Ctrl+Y)" aria-label="Refazer">↷</button>
       <button class="gear" id="lights-btn" aria-label="Luzes" title="Luzes do quarto" aria-expanded="false" aria-controls="lmenu"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
       <div class="menu lmenu" id="lmenu" hidden></div>
       <button class="gear" id="gear" aria-label="Opções" title="Opções" aria-expanded="false" aria-controls="menu"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
@@ -377,11 +436,21 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
         </div>
         <p class="note" id="proj-msg" role="status"></p>
         <hr class="divider">
+        <div class="field"><span class="lbl">Mostrar para alguém</span>
+          <p class="note">Cria um link do site com o seu quarto. Quem abrir só olha e anda pelo quarto, sem mudar nada. Papéis de parede enviados por você não vão no link.</p>
+          <div class="row"><button class="btn" data-act="share-link">Criar link de visualização</button></div>
+          <input id="share-out" class="share-out" type="text" readonly hidden aria-label="Link de visualização"></div>
+        <hr class="divider">
+        <div class="field"><span class="lbl">Versões</span>
+          <p class="note">Guarde o quarto como está agora para poder voltar depois. Ficam neste navegador, até 20.</p>
+          <div class="row ver-new"><input id="ver-name" type="text" maxlength="60" placeholder="Nome (ex.: antes de trocar a cama)" aria-label="Nome da versão"><button class="btn" data-act="ver-save">Guardar</button></div>
+          <ul class="ver-list" id="ver-list"></ul></div>
+        <hr class="divider">
         <div class="field"><span class="lbl">Recomeçar</span>
           <div class="row"><button class="btn ghost" data-act="reset-empty">Começar do zero</button><button class="btn ghost" data-act="reset-sample">Ver exemplo</button></div></div>
         <hr class="divider">
         <div class="field"><span class="lbl">Atalhos</span>
-          <p class="note">Com um item selecionado: <kbd>R</kbd> gira, <kbd>Del</kbd> exclui, setas movem 5 cm, <kbd>Ctrl</kbd>+<kbd>D</kbd> duplica. <kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz, <kbd>Ctrl</kbd>+<kbd>S</kbd> salva. Segure <kbd>Alt</kbd> ao arrastar para mover sem encaixe.</p></div>
+          <p class="note"><kbd>Ctrl</kbd>+<kbd>K</kbd> busca qualquer coisa: móveis, vistas, hora do dia, ações. Com um item selecionado: <kbd>R</kbd> gira, <kbd>L</kbd> trava, <kbd>H</kbd> esconde, <kbd>Del</kbd> exclui, setas movem 5 cm, <kbd>Ctrl</kbd>+<kbd>D</kbd> duplica. Botão direito no móvel mostra as ações. <kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz, <kbd>Ctrl</kbd>+<kbd>Y</kbd> refaz, <kbd>Ctrl</kbd>+<kbd>S</kbd> salva. Segure <kbd>Alt</kbd> ao arrastar para mover sem encaixe.</p></div>
         <hr class="divider">
         <div class="field"><span class="lbl">Créditos</span>
           <p class="note">Frigobar 3D: “Frigobar”, por <a href="https://sketchfab.com/gabriel_solon" target="_blank" rel="noopener">Gabriel Solon</a> (<a href="https://sketchfab.com/3d-models/frigobar-5a7c7e243145403ba665acea4a4b2c4b" target="_blank" rel="noopener">Sketchfab</a>), licença <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
@@ -467,6 +536,15 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
       <p class="note">Escolha uma cor e clique ou arraste o dedo/mouse por cima das teclas. A listrada apaga a luz da tecla. Escolha <strong>Noite</strong> em “Iluminação” para ver o brilho.</p>
     </div>
   </main>
+  <div class="ctx" id="ctx" role="menu" aria-label="Ações do item" hidden></div>
+  <div class="cmdk" id="cmdk" hidden>
+    <div class="cmdk-box" role="dialog" aria-modal="true" aria-label="Buscar ou fazer algo">
+      <label class="cmdk-in"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <input id="cmdk-q" type="text" placeholder="Digite: cadeira, planta, noite, desfazer, girar…" autocomplete="off" spellcheck="false" role="combobox" aria-controls="cmdk-list" aria-expanded="true" aria-label="Buscar ou fazer algo"></label>
+      <ul class="cmdk-list" id="cmdk-list" role="listbox"></ul>
+      <p class="cmdk-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> escolher</span><span><kbd>Enter</kbd> fazer</span><span><kbd>Esc</kbd> fechar</span></p>
+    </div>
+  </div>
 
   <aside class="panel insp" id="insp" aria-live="polite"></aside>
 </div>
@@ -760,7 +838,7 @@ function sanitize(s){
     if(i.type==='rack_tv'){i.type='rack';if(+i.h>.6)i.h=.45}
     if(i.type==='cadeira'&&+i.h<1.05){i.w=.68;i.d=.68;i.h=1.3;if(!isHex(i.color)||i.color==='#2f3440')i.color='#c62828'}
   });
-  const items=(Array.isArray(s.items)?s.items:[]).filter(i=>i&&CATALOG[i.type]).map(i=>{const c=CATALOG[i.type];return {id:String(i.id||uid()),type:i.type,x:num(i.x,0),z:num(i.z,0),rot:((Math.round(num(i.rot,0))%360)+360)%360,w:clamp(num(i.w,c.w),.05,10),d:clamp(num(i.d,c.d),.02,10),h:clamp(num(i.h,c.h),.005,4),y:clamp(num(i.y,c.y||0),0,3.9),color:isHex(i.color)?i.color:c.color,legs:i.legs!==false,art:Math.max(0,Math.round(num(i.art,0))),...cleanOpts(i,c),...extraData(i,c)}});
+  const items=(Array.isArray(s.items)?s.items:[]).filter(i=>i&&CATALOG[i.type]).map(i=>{const c=CATALOG[i.type];return {id:String(i.id||uid()),type:i.type,x:num(i.x,0),z:num(i.z,0),rot:((Math.round(num(i.rot,0))%360)+360)%360,w:clamp(num(i.w,c.w),.05,10),d:clamp(num(i.d,c.d),.02,10),h:clamp(num(i.h,c.h),.005,4),y:clamp(num(i.y,c.y||0),0,3.9),color:isHex(i.color)?i.color:c.color,legs:i.legs!==false,art:Math.max(0,Math.round(num(i.art,0))),...cleanOpts(i,c),...extraData(i,c),locked:i.locked===true,hidden:i.hidden===true}});
   const openings=(Array.isArray(s.openings)?s.openings:[]).filter(o=>o&&OPENINGS[o.type]&&['n','s','e','w'].includes(o.wall)).map(o=>{const c=OPENINGS[o.type];const r={id:String(o.id||uid()),type:o.type,wall:o.wall,pos:num(o.pos,0),w:num(o.w,c.w),h:num(o.h,c.h),sill:num(o.sill,c.sill),color:isHex(o.color)?o.color:c.color};
     if(o.type==='janela')Object.assign(r,{curtain:CURTAINS.some(x=>x[0]===o.curtain)?o.curtain:'none',ccolor:isHex(o.ccolor)?o.ccolor:'#f1ede4',cclosed:o.cclosed===true,clen:o.clen==='janela'?'janela':'chao',sillOut:o.sillOut!==false});
     return r});
@@ -770,10 +848,13 @@ function sanitize(s){
 let state;
 try{const raw=lsGet(KEY);state=raw?sanitize(JSON.parse(raw)):sampleState()}catch(e){state=sampleState()}
 let sel=null;               // {kind:'item'|'opening', id}
-const hist=[];
+const hist=[],redoStack=[];
 function snapshot(){return JSON.stringify(state)}
-function pushHist(pre){hist.push(pre||snapshot());if(hist.length>80)hist.shift();$('#undo').disabled=false}
+function updUndo(){$('#undo').disabled=!hist.length;$('#redo').disabled=!redoStack.length}
+function pushHist(pre){hist.push(pre||snapshot());if(hist.length>80)hist.shift();redoStack.length=0;updUndo()}
+let viewMode=false; // abrindo um link de visualização: nada é salvo
 function save(){
+  if(viewMode){renderSummary();return true}
   const ok=lsSet(KEY,JSON.stringify(state));renderSummary();try{if(updateWarnings())renderInspector()}catch(_){}
   const st=document.getElementById('save-st');
   if(st){const d=new Date(),hm=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
@@ -2020,7 +2101,7 @@ function updateOutline(){
     const dep=openDepth(it); // espaço que a porta/gaveta precisa para abrir
     if(dep){const z=new THREE.Mesh(new THREE.PlaneGeometry(it.w,dep),accentStrong);z.rotation.x=-Math.PI/2;z.position.set(0,.007-(it.y||0),it.d/2+dep/2);z.material=accentFill;g.add(z);
       const ed=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(it.w,dep)),accentLine);ed.rotation.x=-Math.PI/2;ed.position.copy(z.position);g.add(ed)}
-    const ci=CATALOG[it.type];if(!ci.wall&&!ci.path&&!ledEdit)addHandles(g,it); // (aqui "fp" é o contorno no chão, não o modo andar)
+    const ci=CATALOG[it.type];if(!ci.wall&&!ci.path&&!ledEdit&&!it.locked&&!viewMode)addHandles(g,it); // (aqui "fp" é o contorno no chão, não o modo andar)
     host.add(g);
   }else{
     const o=getOp(sel.id),og=openingGroups[sel.id];if(!o||!og)return;
@@ -2088,6 +2169,7 @@ stage.addEventListener('pointerdown',e=>{
   setNDC(e);
   if(ruler){down={x:e.clientX,y:e.clientY,ruler:true};return}
   if(ledEdit){down={x:e.clientX,y:e.clientY,led:true};return} // desenhando LED: clique marca ponto, arrastar gira a vista
+  if(viewMode)return; // só visualização: arrastar só gira a vista
   const hk=sel&&sel.kind==='item'?handleHit():null;
   if(hk){ // puxando uma alça do móvel selecionado
     const it=getItem(sel.id);
@@ -2100,6 +2182,7 @@ stage.addEventListener('pointerdown',e=>{
     controls.enabled=false;select(hit);
     if(hit.kind==='item'){
       const it=getItem(hit.id),c=CATALOG[it.type],base={...hit,pre:snapshot(),moved:false,carry:carryOf(it)};
+      if(it.locked){controls.enabled=true;return} // travado: só seleciona; arrastar gira a vista
       if(c.path){controls.enabled=true;return} // fita desenhada: só seleciona
       if(c.wall){
         const k=ROT_WALL[it.rot],wh=wallHit();
@@ -2274,7 +2357,7 @@ function rotateSel(delta,abs){
 }
 function duplicateSel(){
   if(!sel||sel.kind!=='item')return;pushHist();
-  const src=getItem(sel.id),it=Object.assign(JSON.parse(JSON.stringify(src)),{id:uid()}),c=CATALOG[it.type];state.items.push(it);
+  const src=getItem(sel.id),it=Object.assign(JSON.parse(JSON.stringify(src)),{id:uid(),locked:false,hidden:false}),c=CATALOG[it.type];state.items.push(it);
   if(c.wall){const t=it.rot*Math.PI/180;placeWall(it,it.x+Math.cos(t)*(it.w+.1),it.z-Math.sin(t)*(it.w+.1))}
   else if(c.stack&&src.y>0){const s=surfaceOf(src);if(!(s&&placeOnSurface(it,s))){placeItem(it,it.x+.1,it.z,false);it.y=stackY(it)}}
   else if(c.ceil)findCeilSpot(it);
@@ -2296,11 +2379,28 @@ function nudge(dx,dz){
   else{const o=getOp(sel.id),dir={n:[1,0],s:[-1,0],e:[0,1],w:[0,-1]}[o.wall];o.pos+=dx*dir[0]+dz*dir[1];normOpening(o);buildRoom();updateOutline()}
   renderInspectorGapOnly();save();
 }
-function undo(){
-  if(!hist.length)return;
-  state=sanitize(JSON.parse(hist.pop()));
+function restoreSnap(s){
+  state=sanitize(JSON.parse(s));
   if(sel&&!(sel.kind==='item'?getItem(sel.id):getOp(sel.id)))sel=null;
-  rebuildAll();renderLib();renderInspector();save();$('#undo').disabled=!hist.length;
+  rebuildAll();renderLib();renderInspector();save();updUndo();
+}
+function undo(){if(!hist.length||viewMode)return;redoStack.push(snapshot());restoreSnap(hist.pop());flash('Desfeito · Ctrl+Y refaz')}
+function redo(){if(!redoStack.length||viewMode)return;hist.push(snapshot());restoreSnap(redoStack.pop());flash('Refeito')}
+/* ---------- versões guardadas: fotos do projeto inteiro, com nome ---------- */
+const VER_KEY=KEY+'.versoes';
+function getVersions(){try{const v=JSON.parse(lsGet(VER_KEY)||'[]');return Array.isArray(v)?v.filter(x=>x&&x.id&&x.s):[]}catch(e){return []}}
+function saveVersion(name){
+  const d=new Date(),list=getVersions();
+  const v={id:uid(),name:(String(name||'').replace(/[<>&"']/g,'').trim()||'Versão de '+d.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})).slice(0,60),t:d.getTime(),n:state.items.length,s:snapshot()};
+  list.unshift(v);while(list.length>20)list.pop();
+  if(!lsSet(VER_KEY,JSON.stringify(list))){flash('Sem espaço no navegador para mais versões. Apague alguma na engrenagem.');return null}
+  renderVersions();flash(`Versão “${v.name}” guardada`);return v;
+}
+function openVersion(id){const v=getVersions().find(x=>x.id===id);if(!v)return;try{pushHist();restoreSnap(v.s);flyTo('3d');flash(`Abriu a versão “${v.name}” · Ctrl+Z volta`)}catch(e){flash('Essa versão não abriu.')}}
+function deleteVersion(id){lsSet(VER_KEY,JSON.stringify(getVersions().filter(x=>x.id!==id)));renderVersions()}
+function renderVersions(){
+  const el=document.getElementById('ver-list');if(!el)return;const list=getVersions();
+  el.innerHTML=list.length?list.map(v=>`<li><div class="ver-copy"><b>${escHTML(v.name)}</b><small>${new Date(v.t).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})} · ${v.n} itens</small></div><button class="btn sm" data-ver-open="${v.id}">Abrir</button><button class="btn sm ghost" data-ver-del="${v.id}" aria-label="Apagar a versão ${escHTML(v.name)}">Apagar</button></li>`).join(''):'<li class="note">Nenhuma versão ainda. Guarde uma antes de uma mudança grande.</li>';
 }
 function loadState(s,keepCam){
   state=s;sel=null;
@@ -2521,7 +2621,7 @@ $('#tod-r').addEventListener('change',e=>setHour(+e.target.value));
 $('#tod-real').addEventListener('change',e=>{state.room.realtime=e.target.checked;syncRealtime();applyLighting();renderTod();save()});
 setInterval(()=>{if(syncRealtime()){applyLighting();renderTod()}},30000);
 $('#grid-t').addEventListener('change',e=>{const g=roomG.getObjectByName('grid');if(g)g.visible=e.target.checked});
-$('#undo').addEventListener('click',undo);
+$('#undo').addEventListener('click',undo);$('#redo').addEventListener('click',redo);
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>flyTo(b.dataset.view)));
 
 /* ---------- inspetor ---------- */
@@ -2602,7 +2702,11 @@ function itemInspector(it){
   <div class="field"><span class="lbl">${colorLabel(it,c)}</span><div class="swatches">${swatchHTML(it.type==='fita_led'||it.type==='mousepad'||c.path?LED_COLORS:it.type==='controle_ps5'?PAD_COLORS:c.build===buildCarMini?CAR_COLORS:FURN_COLORS,it.color,'color')}</div></div>
   ${c.path?'':`<div class="field"><span class="lbl">Distância até as paredes</span><div id="gapmap"></div>
     <p class="note">Visto de cima. Para passar com conforto, deixe 60 cm livres ao lado da cama e na frente de armários. Números em laranja estão apertados.</p></div>`}
-  <div class="row"><button class="btn" data-act="dup">Duplicar</button><button class="btn danger" data-act="del">Excluir</button></div>`;
+  <div class="field"><label class="check"><input type="checkbox" data-f="locked"${it.locked?' checked':''}> Travar no lugar <kbd>L</kbd></label>
+    <label class="check"><input type="checkbox" data-f="hidden"${it.hidden?' checked':''}> Esconder do quarto <kbd>H</kbd></label>
+    ${it.locked?'<p class="note">Travado: não sai do lugar ao arrastar, nem com as setas, e não pode ser excluído.</p>':''}${it.hidden?'<p class="note">Escondido: não aparece no quarto. Desmarque para mostrar de novo.</p>':''}</div>
+  <div class="row"><button class="btn" data-act="dup">Duplicar</button><button class="btn danger" data-act="del"${it.locked?' disabled title="Destrave para excluir"':''}>Excluir</button></div>
+  <p class="note">Dica: clique com o botão direito no móvel para ver as ações, ou aperte <kbd>Ctrl</kbd>+<kbd>K</kbd>.</p>`;
 }
 function colorLabel(it,c){
   const t=it.type;
@@ -2692,12 +2796,13 @@ function idleInspector(){
   const r=state.room,area=r.w*r.d;
   const used=state.items.filter(i=>i.type!=='tapete').reduce((s,i)=>s+i.w*i.d,0);
   const free=Math.max(0,area-used);
-  const list=state.items.length?state.items.map(i=>`<li><button data-pick-item="${i.id}"><span>${CATALOG[i.type].name}</span><span class="dm">${cm(i.w)}×${cm(i.d)} cm</span></button></li>`).join(''):'<li class="note">Nenhum móvel ainda. Escolha no catálogo ao lado.</li>';
+  const list=state.items.length?state.items.map(i=>`<li class="li-row${i.hidden?' is-hidden':''}"><button data-pick-item="${i.id}"><span>${escHTML(nm(i))}${i.locked?' <em class="tag">travado</em>':''}${i.hidden?' <em class="tag">escondido</em>':''}</span><span class="dm">${cm(i.w)}×${cm(i.d)} cm</span></button><button class="li-eye" data-hide-item="${i.id}" aria-pressed="${i.hidden?'true':'false'}" aria-label="${i.hidden?'Mostrar':'Esconder'} ${escHTML(nm(i))}" title="${i.hidden?'Mostrar':'Esconder'}">${i.hidden?EYE_OFF:EYE}</button></li>`).join(''):'<li class="note">Nenhum móvel ainda. Escolha no catálogo ao lado.</li>';
+  const nHidden=state.items.filter(i=>i.hidden).length;
   const ops=state.openings.map(o=>`<li><button data-pick-op="${o.id}"><span>${OPENINGS[o.type].name}</span><span class="dm">${cm(o.w)}×${cm(o.h)} cm</span></button></li>`).join('');
   return `<div><p class="eyebrow">Resumo</p><h2>Seu quarto</h2></div>
   <dl class="stats"><div><dt>Área</dt><dd>${fmtM(area)} m²</dd></div><div><dt>Piso livre</dt><dd>${fmtM(free)} m²</dd></div><div><dt>Livre</dt><dd>${Math.round(free/area*100)}%</dd></div></dl>
   ${warnHTML()}
-  <div class="field"><span class="lbl">Itens no quarto · clique para editar</span><ul class="list">${list}${ops}</ul></div>
+  <div class="field"><div class="row li-head"><span class="lbl">Itens no quarto · clique para editar</span>${nHidden?`<button class="btn sm" data-act="show-all">Mostrar ${nHidden} escondido${nHidden>1?'s':''}</button>`:''}</div><ul class="list">${list}${ops}</ul></div>
   <p class="note">Salvar, levar para outro aparelho e recomeçar ficam na engrenagem, no canto de cima.</p>`;
 }
 function renderInspectorGapOnly(){
@@ -2739,6 +2844,8 @@ function gapSVG(){
 insp.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
   if(b.dataset.pickItem){select({kind:'item',id:b.dataset.pickItem});return}
+  if(b.dataset.hideItem){const it=getItem(b.dataset.hideItem);if(it)toggleHide(it);return}
+  if(b.dataset.act==='show-all'){showAll();return}
   if(b.dataset.pickOp){select({kind:'opening',id:b.dataset.pickOp});return}
   if(b.dataset.opt){setOpt(b.dataset.opt,b.dataset.v);return}
   const a=b.dataset.act;
@@ -2750,7 +2857,7 @@ insp.addEventListener('click',e=>{
   if(a==='ledpath'){startLedEdit(sel.id);return}
   if((a==='cap'||a==='ledc'||a==='ccolor'||a==='manta'||a==='trav'||a==='hair'||a==='skin')&&b.dataset.c){pushHist();const o=selObj();o[a]=b.dataset.c;refreshSel();renderInspector();save();return}
   if(a==='deselect')select(null);
-  else if(a==='del')deleteSel();
+  else if(a==='del'){if(!lockedSel())deleteSel()}
   else if(a==='dup')duplicateSel();
   else if(a==='rot90'){pushHist();rotateSel(90);renderInspector();save()}
   else if(a==='art'){pushHist();const it=getItem(sel.id);it.art=(it.art||0)+1;buildItem(it);updateOutline();save()}
@@ -2909,7 +3016,7 @@ function planeAt(y){const p=new THREE.Vector3();return ray.ray.intersectPlane(ne
 /* ---------- modo Andar (primeira pessoa) ---------- */
 let fp=null;const fpKeys=new Set();
 const FP_KEYS=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'];
-function fpObstacles(){return state.items.filter(o=>{const c=CATALOG[o.type];return !c.wall&&!c.ceil&&!c.path&&!c.stack&&o.type!=='tapete'&&o.h>.2&&(o.y||0)<1}).map(o=>{const [a,b]=halfExt(o);return [o.x-a,o.x+a,o.z-b,o.z+b]})}
+function fpObstacles(){return state.items.filter(o=>{const c=CATALOG[o.type];return !o.hidden&&!c.wall&&!c.ceil&&!c.path&&!c.stack&&o.type!=='tapete'&&o.h>.2&&(o.y||0)<1}).map(o=>{const [a,b]=halfExt(o);return [o.x-a,o.x+a,o.z-b,o.z+b]})}
 function fpBlocked(x,z,obs){const {w:W,d:D}=state.room,R=.2;if(Math.abs(x)>W/2-R||Math.abs(z)>D/2-R)return true;return obs.some(r=>x>r[0]-R&&x<r[1]+R&&z>r[2]-R&&z<r[3]+R)}
 function fpStart(){
   const {w:W,d:D}=state.room,obs=fpObstacles();let x=0,z=0,yaw=0;
@@ -3045,7 +3152,7 @@ const warnG=new THREE.Group();scene.add(warnG);
 const warnRed=new THREE.MeshBasicMaterial({color:'#ef4444',transparent:true,opacity:.2,depthWrite:false}),warnRedL=new THREE.LineBasicMaterial({color:'#ef4444',transparent:true,opacity:.95,depthTest:false});
 const warnOr=new THREE.MeshBasicMaterial({color:'#f59e0b',transparent:true,opacity:.2,depthWrite:false}),warnOrL=new THREE.LineBasicMaterial({color:'#f59e0b',transparent:true,opacity:.95,depthTest:false});
 let warnings=[];
-function isFloorItem(o){const c=CATALOG[o.type];return !c.wall&&!c.ceil&&!c.path&&!c.stack&&o.type!=='tapete'&&(o.y||0)<.3}
+function isFloorItem(o){const c=CATALOG[o.type];return !o.hidden&&!c.wall&&!c.ceil&&!c.path&&!c.stack&&o.type!=='tapete'&&(o.y||0)<.3}
 function rectOf(it,s=0,front=0){const hw=it.w/2-s;if(front)return [[-hw,it.d/2],[hw,it.d/2],[hw,it.d/2+front],[-hw,it.d/2+front]].map(([a,b])=>toWorld(it,a,b));const hd=it.d/2-s;return [[-hw,-hd],[hw,-hd],[hw,hd],[-hw,hd]].map(([a,b])=>toWorld(it,a,b))}
 function polysOverlap(A,B){
   for(const P of[A,B])for(let i=0;i<P.length;i++){
@@ -3089,7 +3196,7 @@ function computeWarnings(){
 }
 function updateWarnings(){
   while(warnG.children.length){const o=warnG.children.pop();if(o.geometry)o.geometry.dispose()}
-  warnings=state.room.warn===false?[]:computeWarnings();
+  warnings=state.room.warn===false||viewMode?[]:computeWarnings();
   const sev={};for(const w of warnings)for(const id of w.ids)if(sev[id]!=='red')sev[id]=w.sev;
   for(const id in sev){const it=getItem(id);if(!it)continue;const h=Math.max(it.h,.02),red=sev[id]==='red',geo=new THREE.BoxGeometry(it.w+.02,h+.02,it.d+.02);
     const m=new THREE.Mesh(geo,red?warnRed:warnOr),e=new THREE.LineSegments(new THREE.EdgesGeometry(geo),red?warnRedL:warnOrL);
@@ -3192,7 +3299,7 @@ function fpPose(){
 const menu=$('#menu'),gear=$('#gear');
 let dlApi=null;
 try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(n=>{dlApi=n},()=>{})}catch(_){}
-function setMenu(open){menu.hidden=!open;gear.setAttribute('aria-expanded',open?'true':'false');if(!open){$('#code-box').hidden=true;$('#proj-msg').textContent=''}}
+function setMenu(open){if(open)renderVersions();menu.hidden=!open;gear.setAttribute('aria-expanded',open?'true':'false');if(!open){$('#code-box').hidden=true;$('#proj-msg').textContent=''}}
 gear.addEventListener('click',e=>{e.stopPropagation();setLMenu(false);setMenu(menu.hidden)});
 document.addEventListener('pointerdown',e=>{
   if(!menu.hidden&&!menu.contains(e.target)&&!gear.contains(e.target))setMenu(false);
@@ -3301,6 +3408,13 @@ menu.addEventListener('click',e=>{
     }
   }
   else if(a==='file-open'){$('#file-in').click()}
+  else if(a==='share-link')shareLink();
+  else if(a==='ver-save'){const n=$('#ver-name');if(saveVersion(n.value))n.value=''}
+  else if(b.dataset.verOpen){openVersion(b.dataset.verOpen);setMenu(false)}
+  else if(b.dataset.verDel){
+    if(!b.classList.contains('armed')){b.classList.add('armed');b.textContent='Apagar?';setTimeout(()=>{if(b.isConnected){b.classList.remove('armed');b.textContent='Apagar'}},3000);return}
+    deleteVersion(b.dataset.verDel);
+  }
   else if(a==='copy'){
     const code=JSON.stringify(state),box=$('#code-box'),ta=$('#code-ta'),msg=$('#proj-msg');
     ta.value=code;
@@ -3329,7 +3443,7 @@ insp.addEventListener('change',e=>{
   if(e.target.type==='checkbox'){pushHist();const o=selObj();o[f]=e.target.checked;
     if(f==='vitrine')setCarDims(o);
     if(f==='caixa'){const k=e.target.checked?1.3:1/1.3;o.w=r3(o.w*k);o.d=r3(o.d*k);o.h=r3(o.h*(e.target.checked?1.32:1/1.32));placeItem(o,o.x,o.z,false)}
-    refreshSel();if(f==='vitrine'||f==='caixa')renderInspector();if(f==='on')rebuildSwitches();if(f==='cclosed'||f==='real')renderInspector();save();return}
+    refreshSel();if(f==='vitrine'||f==='caixa')renderInspector();if(f==='on')rebuildSwitches();if(f==='cclosed'||f==='real'||f==='locked'||f==='hidden')renderInspector();save();return}
   const v=parseFloat(String(e.target.value).replace(',','.'));
   if(!Number.isFinite(v)||v<0||(v===0&&f!=='y')){renderInspector();return}
   pushHist();const m=v/100;
@@ -3351,6 +3465,7 @@ insp.addEventListener('change',e=>{
 document.addEventListener('keydown',e=>{
   const tag=(e.target.tagName||'').toLowerCase();if(tag==='input'||tag==='textarea')return;
   const k=e.key;
+  if(viewMode&&!fp&&!CAM_KEYS.includes(e.code)&&k!=='Escape')return; // só visualização
   if((e.ctrlKey||e.metaKey)&&k.toLowerCase()==='s'){e.preventDefault();saveNow();return}
   if(k==='Escape'&&!menu.hidden){setMenu(false);gear.focus();return}
   if(k==='Escape'&&!lmenu.hidden){setLMenu(false);lbtn.focus();return}
@@ -3362,17 +3477,170 @@ document.addEventListener('keydown',e=>{
   }
   if(k==='Escape'&&ruler){setRuler(false);return}
   if(!fp&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&CAM_KEYS.includes(e.code)){e.preventDefault();camKeys.add(e.code);return}
+  if((e.ctrlKey||e.metaKey)&&(k.toLowerCase()==='y'||(k.toLowerCase()==='z'&&e.shiftKey))){e.preventDefault();redo();return}
   if((e.ctrlKey||e.metaKey)&&k.toLowerCase()==='z'){e.preventDefault();undo();return}
   if(!sel)return;
+  const selIt=sel.kind==='item'?getItem(sel.id):null;
   if((e.ctrlKey||e.metaKey)&&k.toLowerCase()==='d'){e.preventDefault();duplicateSel();return}
-  if(k==='Delete'||k==='Backspace'){e.preventDefault();deleteSel()}
-  else if(k==='r'||k==='R'){const c=sel.kind==='item'&&CATALOG[getItem(sel.id).type];if(!c||c.wall||c.path)return;pushHist();rotateSel(90);renderInspector();save()}
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  if(k==='Delete'||k==='Backspace'){e.preventDefault();if(!lockedSel())deleteSel()}
+  else if(k==='r'||k==='R'){const c=selIt&&CATALOG[selIt.type];if(!c||c.wall||c.path||lockedSel())return;pushHist();rotateSel(90);renderInspector();save()}
+  else if((k==='l'||k==='L')&&selIt)toggleLock(selIt);
+  else if((k==='h'||k==='H')&&selIt)toggleHide(selIt);
   else if(k==='Escape')select(null);
   else if(k.startsWith('Arrow')){
-    e.preventDefault();const st=e.shiftKey?.01:.05;
+    e.preventDefault();if(lockedSel())return;const st=e.shiftKey?.01:.05;
     nudge(k==='ArrowLeft'?-st:k==='ArrowRight'?st:0,k==='ArrowUp'?-st:k==='ArrowDown'?st:0);
   }
 });
+
+/* ---------- travar e esconder ---------- */
+const EYE='<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
+const EYE_OFF='<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10.9 10.9 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.2 6.3C3.6 8.1 2 12 2 12s3.6 7 10 7c1.6 0 3-.4 4.2-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+function lockedSel(){const it=sel&&sel.kind==='item'?getItem(sel.id):null;if(it&&it.locked){flash(`${nm(it)} está travado. Aperte L para destravar.`);return true}return false}
+function toggleLock(it){pushHist();it.locked=!it.locked;updateOutline();save();renderInspector();flash(it.locked?`${nm(it)} travado no lugar`:`${nm(it)} destravado`)}
+function toggleHide(it){pushHist();it.hidden=!it.hidden;save();renderInspector();updateWarnings();flash(it.hidden?`${nm(it)} escondido · aparece na lista do painel`:`${nm(it)} aparece de novo`)}
+function showAll(){const h=state.items.filter(i=>i.hidden);if(!h.length)return;pushHist();h.forEach(i=>{i.hidden=false});save();renderInspector();updateWarnings();flash(`${h.length} ite${h.length>1?'ns aparecem':'m aparece'} de novo`)}
+
+/* ---------- menu do botão direito ---------- */
+const ctxEl=$('#ctx');let ctxDown=null;
+canvas.addEventListener('pointerdown',e=>{if(e.button===2)ctxDown={x:e.clientX,y:e.clientY}});
+canvas.addEventListener('pointerup',e=>{
+  if(e.button!==2||!ctxDown)return;const d=ctxDown;ctxDown=null;
+  if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>5||fp||viewMode||ledEdit||ruler)return; // arrastou: era para mover a vista
+  setNDC(e);const hit=pick();if(!hit){closeCtx();return}
+  select(hit);openCtx(e.clientX,e.clientY);
+});
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+function ctxItems(){
+  if(!sel)return [];if(sel.kind!=='item')return [['del','Apagar','Del']];
+  const it=getItem(sel.id),c=CATALOG[it.type],L=[['dup','Duplicar','Ctrl+D']];
+  if(!c.wall&&!c.path)L.push(['rot90','Girar 90°','R',it.locked]);
+  if(c.opener)L.push(['open',it.aberto?(c.opener==='porta'?'Fechar a porta':'Fechar as gavetas'):(c.opener==='porta'?'Abrir a porta':'Abrir as gavetas'),'']);
+  L.push(['lock',it.locked?'Destravar':'Travar no lugar','L'],['hide','Esconder','H'],['sep'],['del','Apagar','Del',it.locked]);
+  return L;
+}
+function openCtx(x,y){
+  const title=sel.kind==='item'?nm(getItem(sel.id)):OPENINGS[getOp(sel.id).type].name;
+  ctxEl.innerHTML=`<p class="ctx-title">${escHTML(title)}</p>`+ctxItems().map(([a,t,k,dis])=>a==='sep'?'<hr>':`<button role="menuitem" data-ctx="${a}"${dis?' disabled':''}${a==='del'?' class="danger"':''}><span>${t}</span>${k?`<kbd>${k}</kbd>`:''}</button>`).join('');
+  ctxEl.hidden=false;const r=ctxEl.getBoundingClientRect();
+  ctxEl.style.left=Math.max(8,Math.min(x,innerWidth-r.width-8))+'px';ctxEl.style.top=Math.max(8,Math.min(y,innerHeight-r.height-8))+'px';
+  const f=ctxEl.querySelector('button:not(:disabled)');if(f)f.focus({preventScroll:true});
+}
+function closeCtx(){ctxEl.hidden=true}
+function runAction(a){
+  const it=sel&&sel.kind==='item'?getItem(sel.id):null;
+  if(a==='dup')duplicateSel();
+  else if(a==='rot90'){if(lockedSel())return;pushHist();rotateSel(90);renderInspector();save()}
+  else if(a==='open'&&it)toggleOpen(it);
+  else if(a==='lock'&&it)toggleLock(it);
+  else if(a==='hide'&&it)toggleHide(it);
+  else if(a==='del'){if(!lockedSel())deleteSel()}
+}
+ctxEl.addEventListener('click',e=>{const b=e.target.closest('[data-ctx]');if(!b||b.disabled)return;closeCtx();runAction(b.dataset.ctx)});
+ctxEl.addEventListener('keydown',e=>{
+  const bs=[...ctxEl.querySelectorAll('button:not(:disabled)')],i=bs.indexOf(document.activeElement);
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeCtx();canvas.focus()}
+  else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();e.stopPropagation();const n=bs[(i+(e.key==='ArrowDown'?1:-1)+bs.length)%bs.length];if(n)n.focus()}
+});
+document.addEventListener('pointerdown',e=>{if(!ctxEl.hidden&&!ctxEl.contains(e.target))closeCtx()},true);
+stage.addEventListener('wheel',closeCtx,{passive:true});window.addEventListener('blur',closeCtx);
+
+/* ---------- paleta de comandos (Ctrl+K) ---------- */
+const cmdkEl=$('#cmdk'),cmdkQ=$('#cmdk-q'),cmdkL=$('#cmdk-list');let cmdkItems=[],cmdkIdx=0;
+function cmdList(){
+  const L=[],add=(group,label,run,kw='',thumb='')=>L.push({group,label,run,kw,thumb});
+  const it=sel&&sel.kind==='item'?getItem(sel.id):null;
+  if(it){const c=CATALOG[it.type],n=nm(it);
+    if(!c.wall&&!c.path)add('Item selecionado',`Girar ${n} 90°`,()=>runAction('rot90'),'rodar virar');
+    add('Item selecionado',`Duplicar ${n}`,()=>runAction('dup'),'copiar clonar');
+    if(c.opener)add('Item selecionado',`${it.aberto?'Fechar':'Abrir'} ${n}`,()=>runAction('open'),'porta gaveta');
+    add('Item selecionado',`${it.locked?'Destravar':'Travar'} ${n}`,()=>runAction('lock'),'trancar fixar bloquear');
+    add('Item selecionado',`${it.hidden?'Mostrar':'Esconder'} ${n}`,()=>runAction('hide'),'ocultar sumir');
+    add('Item selecionado',`Apagar ${n}`,()=>runAction('del'),'excluir remover deletar');
+  }
+  add('Ações','Desfazer',undo,'voltar ctrl z');add('Ações','Refazer',redo,'ctrl y');
+  add('Ações','Salvar agora',saveNow,'gravar');
+  add('Ações','Guardar versão do quarto',()=>saveVersion(''),'versao backup copia historico');
+  add('Ações','Criar link de visualização',()=>{setMenu(true);shareLink()},'compartilhar mostrar enviar link');
+  if(state.items.some(i=>i.hidden))add('Ações','Mostrar os itens escondidos',showAll,'reexibir esconder');
+  add('Ações','Medir com a régua',()=>setRuler(!ruler),'regua medir distancia');
+  add('Ações','Adicionar modelo 3D (.glb)',()=>$('#model-in').click(),'enviar importar upload glb meu');
+  [['3d','Vista 3D'],['top','Vista de cima (planta)'],['inside','Vista por dentro'],['walk','Andar pelo quarto']].forEach(([v,n])=>add('Vista',n,()=>flyTo(v),'camera ver olhar'));
+  [[7,'Manhã'],[12,'Meio-dia'],[18,'Pôr do sol'],[21,'Noite']].forEach(([h,n])=>add('Hora do dia',`${n} (${h}h)`,()=>setHour(h),'luz dia noite hora modo'));
+  state.items.forEach(i=>add('Selecionar',nm(i),()=>select({kind:'item',id:i.id}),'ir achar '+CATALOG[i.type].name+' '+(CAT_TAGS[i.type]||'')));
+  userModels.forEach(m=>add('Adicionar',m.name,()=>addItem('modelo',userExtra(m.id)),'meu modelo novo','u:'+m.id));
+  for(const [k,c] of Object.entries(CATALOG))if(k!=='modelo')add('Adicionar',c.name,()=>addItem(k),(CAT_TAGS[k]||'')+' '+c.cat+' colocar novo',k);
+  for(const [k,c] of Object.entries(OPENINGS))add('Adicionar',c.name,()=>addOpening(k),'abertura parede');
+  return L;
+}
+function renderCmdk(){
+  const raw=cmdkQ.value,q=norm(raw).trim(),w=q?q.split(/\s+/):[],all=cmdList();
+  let list=w.length?all.filter(c=>w.every(x=>norm(c.label+' '+c.group+' '+c.kw).includes(x))):all.filter(c=>c.group!=='Adicionar'&&c.group!=='Selecionar');
+  if(w.length){const s=c=>norm(c.label).startsWith(w[0])?0:norm(c.label).includes(w[0])?1:2;list=list.map((c,i)=>[c,i]).sort((a,b)=>s(a[0])-s(b[0])||a[1]-b[1]).map(a=>a[0])}
+  cmdkItems=list.slice(0,60);cmdkIdx=0;let g='',h='';
+  cmdkItems.forEach((c,i)=>{
+    if(c.group!==g){g=c.group;h+=`<li class="cmdk-g" role="presentation">${g}</li>`}
+    const th=c.thumb?`<span class="cmdk-th">${thumbs[c.thumb]?`<img src="${thumbs[c.thumb]}" alt="">`:''}</span>`:'';
+    h+=`<li role="option" id="cmdk-o${i}" data-i="${i}" class="cmdk-o${i===0?' on':''}" aria-selected="${i===0}">${th}<span>${escHTML(c.label)}</span>${c.group==='Adicionar'?'<small>adicionar</small>':''}</li>`;
+  });
+  cmdkL.innerHTML=h||`<li class="cmdk-empty">Nada encontrado para “${escHTML(raw)}”. Tente outra palavra.</li>`;
+  cmdkQ.setAttribute('aria-activedescendant',cmdkItems.length?'cmdk-o0':'');
+}
+function setCmdkIdx(i){
+  cmdkIdx=i;cmdkL.querySelectorAll('.cmdk-o').forEach(o=>{const on=+o.dataset.i===i;o.classList.toggle('on',on);o.setAttribute('aria-selected',on)});
+  const o=document.getElementById('cmdk-o'+i);if(o)o.scrollIntoView({block:'nearest'});cmdkQ.setAttribute('aria-activedescendant','cmdk-o'+i);
+}
+function openCmdk(){if(viewMode)return;closeCtx();setMenu(false);cmdkEl.hidden=false;cmdkQ.value='';renderCmdk();cmdkQ.focus()}
+function closeCmdk(){cmdkEl.hidden=true}
+function runCmdk(i){const c=cmdkItems[i];if(!c)return;closeCmdk();c.run()}
+cmdkQ.addEventListener('input',renderCmdk);
+cmdkQ.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'){e.preventDefault();if(cmdkItems.length)setCmdkIdx((cmdkIdx+1)%cmdkItems.length)}
+  else if(e.key==='ArrowUp'){e.preventDefault();if(cmdkItems.length)setCmdkIdx((cmdkIdx-1+cmdkItems.length)%cmdkItems.length)}
+  else if(e.key==='Enter'){e.preventDefault();runCmdk(cmdkIdx)}
+  else if(e.key==='Escape'){e.preventDefault();closeCmdk()}
+});
+cmdkL.addEventListener('click',e=>{const o=e.target.closest('[data-i]');if(o)runCmdk(+o.dataset.i)});
+cmdkL.addEventListener('mousemove',e=>{const o=e.target.closest('[data-i]');if(o&&+o.dataset.i!==cmdkIdx)setCmdkIdx(+o.dataset.i)});
+cmdkEl.addEventListener('pointerdown',e=>{if(e.target===cmdkEl)closeCmdk()});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==='k'){e.preventDefault();cmdkEl.hidden?openCmdk():closeCmdk()}},true);
+$('#cmdk-btn').addEventListener('click',openCmdk);
+$('#ver-name').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(saveVersion(e.target.value))e.target.value=''}});
+
+/* ---------- link de visualização: o quarto vai dentro do próprio link (#ver=...) ---------- */
+const SITE_URL='https://ort4vi0.github.io/meu-quarto-3d/';
+const b64u=bytes=>{let s='';for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const ub64u=str=>{const s=atob(str.replace(/-/g,'+').replace(/_/g,'/')),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return b};
+async function zipBytes(bytes,pack){const st=new Blob([bytes]).stream().pipeThrough(pack?new CompressionStream('deflate-raw'):new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer())}
+async function shareLink(){
+  const out=$('#share-out'),msg=$('#proj-msg'),s=JSON.parse(snapshot());
+  s.items.forEach(i=>{delete i.img});
+  const raw=new TextEncoder().encode(JSON.stringify(s));
+  let code;try{code='z'+b64u(await zipBytes(raw,true))}catch(e){code='b'+b64u(raw)}
+  const url=SITE_URL+'#ver='+code;out.value=url;out.hidden=false;
+  const kb=(url.length/1024).toFixed(1).replace('.',',');
+  try{await navigator.clipboard.writeText(url);msg.textContent=`Link copiado (${kb} KB). Mande para quem você quiser ver o quarto.`}
+  catch(e){out.focus();out.select();msg.textContent='Selecionei o link acima. Use Ctrl+C para copiar.'}
+}
+async function checkViewLink(){
+  const m=/^#ver=([zb])([A-Za-z0-9_-]+)$/.exec(location.hash);if(!m)return;
+  try{
+    let bytes=ub64u(m[2]);if(m[1]==='z')bytes=await zipBytes(bytes,false);
+    const s=sanitize(JSON.parse(new TextDecoder().decode(bytes)));
+    viewMode=true;document.body.classList.add('view-mode');$('#viewbar').hidden=false;$('#crumb-name').textContent='Quarto compartilhado';
+    hist.length=0;redoStack.length=0;updUndo();closeCmdk();setMenu(false);$('#tip').hidden=true;
+    loadState(s);updateWarnings();resize();flash('Você está vendo o quarto de outra pessoa. Arraste para girar a vista.');
+  }catch(e){flash('Esse link de visualização está incompleto. Peça para mandarem de novo.')}
+}
+$('#view-use').addEventListener('click',e=>{
+  const b=e.currentTarget;
+  if(!b.classList.contains('armed')){b.classList.add('armed');b.textContent='Isso troca o seu quarto. Clique de novo';setTimeout(()=>{if(b.isConnected){b.classList.remove('armed');b.textContent='Usar este quarto'}},4000);return}
+  viewMode=false;document.body.classList.remove('view-mode');$('#viewbar').hidden=true;$('#crumb-name').textContent='Meu quarto';
+  history.replaceState(null,'',location.pathname+location.search);save();rebuildAll();renderInspector();resize();flash('Pronto: agora este quarto é o seu, e já está salvo.');
+});
+$('#view-exit').addEventListener('click',()=>{history.replaceState(null,'',location.pathname+location.search);location.reload()});
+addEventListener('hashchange',()=>{if(/^#ver=/.test(location.hash))location.reload()});
 
 /* ---------- rótulos sobre a cena ---------- */
 const lbW=document.createElement('div'),lbD=document.createElement('div'),lbS=document.createElement('div');
@@ -3411,6 +3679,7 @@ function updateWalls(){
     const vis=!out[ROT_WALL[it.rot]];g.visible=vis;
     if(!vis&&isSurf(it))itemsOn(it).forEach(o=>{if(itemObjs[o.id])itemObjs[o.id].visible=false});
   }
+  for(const it of state.items)if(it.hidden&&itemObjs[it.id])itemObjs[it.id].visible=false; // escondidos pelo usuário
   if(ledEdit)for(const id in itemObjs)itemObjs[id].visible=id===ledEdit.id; // desenhando LED: móveis viram contorno
 }
 let lastT=0;
@@ -3436,6 +3705,7 @@ syncRealtime();
 renderCatalog();renderLib();rebuildAll();applyTheme();renderInspector();resize();flyTo('3d',true);save();$('#hint').textContent=hintText();$('#warn-t').checked=state.room.warn!==false;
 requestAnimationFrame(loop);
 setTimeout(queueThumbs,250); // miniaturas do catálogo
+checkViewLink(); // abriu um link de visualização?
 if(!lsGet(TIP_KEY))$('#tip').hidden=false;
 $('#tip-close').addEventListener('click',()=>{$('#tip').hidden=true;lsSet(TIP_KEY,'1')});
 // os modelos 3D reais ficam no fim da página: carrega depois que ela terminar de chegar
