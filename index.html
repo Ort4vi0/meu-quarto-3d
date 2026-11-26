@@ -3613,21 +3613,48 @@ const SITE_URL='https://ort4vi0.github.io/meu-quarto-3d/';
 const b64u=bytes=>{let s='';for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
 const ub64u=str=>{const s=atob(str.replace(/-/g,'+').replace(/_/g,'/')),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return b};
 async function zipBytes(bytes,pack){const st=new Blob([bytes]).stream().pipeThrough(pack?new CompressionStream('deflate-raw'):new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer())}
+// link compacto: tira o que já é o padrão (o app preenche de volta ao abrir), os ids e as chaves longas
+const SHORT={type:'t',x:'x',z:'z',rot:'r',w:'w',d:'d',h:'h',y:'y',color:'c',wall:'l',pos:'p',sill:'s'};
+const LONG=Object.fromEntries(Object.entries(SHORT).map(([a,b])=>[b,a]));
+const sameV=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const rnd=v=>typeof v==='number'?Math.round(v*1000)/1000:Array.isArray(v)?v.map(rnd):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,rnd(x)])):v;
+const keysTo=(o,map)=>{const r={};for(const k in o)r[map[k]||k]=o[k];return r};
+function packState(s){
+  const R0=emptyState().room,room={};for(const k in s.room)if(!sameV(s.room[k],R0[k]))room[k]=s.room[k];
+  const i=s.items.map(it=>{const d=defaultsOf(it.type),o={};
+    for(const k in it){
+      if(k==='id'||k==='img')continue;
+      if(k==='locked'||k==='hidden'){if(it[k])o[k]=1;continue}
+      if((k==='x'||k==='z'||k==='rot')&&it[k]===0)continue;
+      if(k in d&&sameV(it[k],d[k]))continue;
+      o[k]=it[k];
+    }
+    return keysTo(o,SHORT)});
+  const o=s.openings.map(op=>{const c=OPENINGS[op.type],r={};for(const k in op){if(k==='id'||(k in c&&sameV(op[k],c[k])))continue;r[k]=op[k]}return keysTo(r,SHORT)});
+  return rnd({room,i,o});
+}
+function unpackState(p){
+  const room=Object.assign(emptyState().room,p.room||{});
+  const items=(p.i||[]).map(x=>keysTo(x,LONG)).filter(x=>CATALOG[x.type]).map(x=>Object.assign({id:uid(),x:0,z:0,rot:0},defaultsOf(x.type),x,{locked:!!x.locked,hidden:!!x.hidden}));
+  const openings=(p.o||[]).map(x=>keysTo(x,LONG)).filter(x=>OPENINGS[x.type]).map(x=>Object.assign({id:uid()},OPENINGS[x.type],x));
+  return {room,items,openings};
+}
 async function shareLink(){
-  const out=$('#share-out'),msg=$('#proj-msg'),s=JSON.parse(snapshot());
-  s.items.forEach(i=>{delete i.img});
-  const raw=new TextEncoder().encode(JSON.stringify(s));
-  let code;try{code='z'+b64u(await zipBytes(raw,true))}catch(e){code='b'+b64u(raw)}
+  const out=$('#share-out'),msg=$('#proj-msg');
+  const raw=new TextEncoder().encode(JSON.stringify(packState(JSON.parse(snapshot()))));
+  let code;try{code='y'+b64u(await zipBytes(raw,true))}catch(e){code='x'+b64u(raw)}
   const url=SITE_URL+'#ver='+code;out.value=url;out.hidden=false;
   const kb=(url.length/1024).toFixed(1).replace('.',',');
   try{await navigator.clipboard.writeText(url);msg.textContent=`Link copiado (${kb} KB). Mande para quem você quiser ver o quarto.`}
   catch(e){out.focus();out.select();msg.textContent='Selecionei o link acima. Use Ctrl+C para copiar.'}
 }
 async function checkViewLink(){
-  const m=/^#ver=([zb])([A-Za-z0-9_-]+)$/.exec(location.hash);if(!m)return;
+  const m=/^#ver=([zbyx])([A-Za-z0-9_-]+)$/.exec(location.hash);if(!m)return;
   try{
-    let bytes=ub64u(m[2]);if(m[1]==='z')bytes=await zipBytes(bytes,false);
-    const s=sanitize(JSON.parse(new TextDecoder().decode(bytes)));
+    // y/x: formato compacto (y comprimido) · z/b: formato antigo, continua abrindo
+    let bytes=ub64u(m[2]);if(m[1]==='z'||m[1]==='y')bytes=await zipBytes(bytes,false);
+    let data=JSON.parse(new TextDecoder().decode(bytes));if(m[1]==='y'||m[1]==='x')data=unpackState(data);
+    const s=sanitize(data);
     viewMode=true;document.body.classList.add('view-mode');$('#viewbar').hidden=false;$('#crumb-name').textContent='Quarto compartilhado';
     hist.length=0;redoStack.length=0;updUndo();closeCmdk();setMenu(false);$('#tip').hidden=true;
     loadState(s);updateWarnings();resize();flash('Você está vendo o quarto de outra pessoa. Arraste para girar a vista.');
