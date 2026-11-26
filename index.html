@@ -437,7 +437,7 @@ textarea{border-radius:var(--radius-s);background:var(--bg);font:12px/1.5 ui-mon
         <p class="note" id="proj-msg" role="status"></p>
         <hr class="divider">
         <div class="field"><span class="lbl">Mostrar para alguém</span>
-          <p class="note">Cria um link do site com o seu quarto. Quem abrir só olha e anda pelo quarto, sem mudar nada. Papéis de parede enviados por você não vão no link.</p>
+          <p class="note">Cria um link curto do site com o seu quarto. Quem abrir só olha e anda pelo quarto, sem mudar nada. Papéis de parede enviados por você não vão no link.</p>
           <div class="row"><button class="btn" data-act="share-link">Criar link de visualização</button></div>
           <input id="share-out" class="share-out" type="text" readonly hidden aria-label="Link de visualização"></div>
         <hr class="divider">
@@ -3609,7 +3609,7 @@ $('#cmdk-btn').addEventListener('click',openCmdk);
 $('#ver-name').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(saveVersion(e.target.value))e.target.value=''}});
 
 /* ---------- link de visualização: o quarto vai dentro do próprio link (#ver=...) ---------- */
-const SITE_URL='https://ort4vi0.github.io/meu-quarto-3d/';
+const SITE_URL='https://ort4vi0.github.io/meu-quarto-3d/',LINKS_API='https://meu-quarto-links.gotaviosonnenstrahl.workers.dev'; // servidor dos links curtos (pasta worker/ do repositório)
 const b64u=bytes=>{let s='';for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
 const ub64u=str=>{const s=atob(str.replace(/-/g,'+').replace(/_/g,'/')),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return b};
 async function zipBytes(bytes,pack){const st=new Blob([bytes]).stream().pipeThrough(pack?new CompressionStream('deflate-raw'):new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer())}
@@ -3643,13 +3643,25 @@ async function shareLink(){
   const out=$('#share-out'),msg=$('#proj-msg');
   const raw=new TextEncoder().encode(JSON.stringify(packState(JSON.parse(snapshot()))));
   let code;try{code='y'+b64u(await zipBytes(raw,true))}catch(e){code='x'+b64u(raw)}
-  const url=SITE_URL+'#ver='+code;out.value=url;out.hidden=false;
-  const kb=(url.length/1024).toFixed(1).replace('.',',');
-  try{await navigator.clipboard.writeText(url);msg.textContent=`Link copiado (${kb} KB). Mande para quem você quiser ver o quarto.`}
-  catch(e){out.focus();out.select();msg.textContent='Selecionei o link acima. Use Ctrl+C para copiar.'}
+  // link curto: o quarto fica guardado no servidor e o link leva só um código de 6 letras
+  msg.textContent='Criando o link…';let url=SITE_URL+'#ver='+code,short=false;
+  try{
+    const r=await fetch(LINKS_API+'/s',{method:'POST',body:code,headers:{'Content-Type':'text/plain'}}),j=await r.json();
+    if(r.ok&&j.id){url=SITE_URL+'#s='+j.id;short=true}
+  }catch(e){}
+  out.value=url;out.hidden=false;
+  const done=short?'Link copiado. Mande para quem você quiser ver o quarto.':'O servidor de links curtos não respondeu, então este é o link longo (funciona igual). Copiado.';
+  try{await navigator.clipboard.writeText(url);msg.textContent=done}
+  catch(e){out.focus();out.select();msg.textContent=(short?'':'O servidor de links curtos não respondeu, então este é o link longo. ')+'Selecionei o link acima. Use Ctrl+C para copiar.'}
 }
 async function checkViewLink(){
-  const m=/^#ver=([zbyx])([A-Za-z0-9_-]+)$/.exec(location.hash);if(!m)return;
+  let m=/^#ver=([zbyx])([A-Za-z0-9_-]+)$/.exec(location.hash);
+  const sm=/^#s=([A-Za-z0-9]{4,12})$/.exec(location.hash);
+  if(sm){ // link curto: busca o quarto no servidor
+    try{const r=await fetch(LINKS_API+'/s/'+sm[1]);if(!r.ok)throw new Error(r.status);m=/^([zbyx])([A-Za-z0-9_-]+)$/.exec((await r.text()).trim())}
+    catch(e){flash('Não achei esse quarto. Confira se o link está completo ou peça para mandarem de novo.');return}
+  }
+  if(!m)return;
   try{
     // y/x: formato compacto (y comprimido) · z/b: formato antigo, continua abrindo
     let bytes=ub64u(m[2]);if(m[1]==='z'||m[1]==='y')bytes=await zipBytes(bytes,false);
@@ -3667,7 +3679,7 @@ $('#view-use').addEventListener('click',e=>{
   history.replaceState(null,'',location.pathname+location.search);save();rebuildAll();renderInspector();resize();flash('Pronto: agora este quarto é o seu, e já está salvo.');
 });
 $('#view-exit').addEventListener('click',()=>{history.replaceState(null,'',location.pathname+location.search);location.reload()});
-addEventListener('hashchange',()=>{if(/^#ver=/.test(location.hash))location.reload()});
+addEventListener('hashchange',()=>{if(/^#(ver|s)=/.test(location.hash))location.reload()});
 
 /* ---------- rótulos sobre a cena ---------- */
 const lbW=document.createElement('div'),lbD=document.createElement('div'),lbS=document.createElement('div');

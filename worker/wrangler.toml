@@ -1,0 +1,9 @@
+# Worker dos links curtos do Meu Quarto 3D (publicar: npx wrangler deploy, dentro desta pasta)
+name = "meu-quarto-links"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "QUARTOS"
+id = "6d5b2b8962a14f848a53d6186c52653a"
